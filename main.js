@@ -1,4 +1,5 @@
-const input = document.getElementById('input')
+const input1 = document.getElementById('input1')
+const input2 = document.getElementById('input2')
 // console.log("input", input)
 const form = document.getElementById('form')
 // console.log("form", form)
@@ -6,45 +7,57 @@ const button = document.getElementById('button')
 // console.log("button", button)
 const output = document.getElementById('output')
 // console.log("output", output)
-let inputValue = '';
+let inputValue1 = '';
 let outputValue = '';
 
-
+input1.value = '2020-02-16 13:26:52';
+input2.value = '2020-07-5 22:42:50';
 getText = (e) => {
   e.preventDefault();
 
-  if (input.value.trim() == '') {
+  if (input1.value.trim() == '' && input2.value.trim() == '') {
     alert('empty field')
   } else {
-    inputValue = input.value;
-    let givenDate = new Date(inputValue)
-    let currentDate = new Date()
-    let diffTime = Math.abs(currentDate - givenDate)
-    let diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
-    // console.log("getText -> diffYears", diffYears)
-    let diffMonths = Math.floor((diffTime / ((1000 * 60 * 60 * 24 * 365) / 12)) % 12);
-    // console.log("getText -> diffMonths", diffMonths)
+    inputValue1 = input1.value;
+    inputValue2 = input2.value;
 
-    let StartYear = givenDate.getUTCFullYear()
-    // console.log("getText -> StartYear", StartYear)
-    let EndYear = currentDate.getUTCFullYear()
-    // console.log("getText -> EndYear", EndYear)
+    let Date1 = new Date(inputValue1)
+    //console.log("getText -> Date1", Date1)
+    let Date2 = new Date(inputValue2)
+    //console.log("getText -> Date2", Date2)
+
+    let diffTime = Math.abs((Date2 - Date1))
+
+    //console.log("getText -> diffTime", diffTime)
+
+    let diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
+    //console.log("getText -> diffYears", diffYears)
+    let diffMonths = Math.floor((diffTime / ((1000 * 60 * 60 * 24 * 365) / 12)) % 12);
+    //console.log("getText -> diffMonths", diffMonths)
+
+
+    let StartYear = Date1.getUTCFullYear()
+    //console.log("getText -> StartYear", StartYear)
+    let EndYear = Date2.getUTCFullYear()
+    //console.log("getText -> EndYear", EndYear)
 
 
     const MonthsArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     let sum = 0;
-    let StartMonth = givenDate.getMonth();
+    let StartMonth = (Date1.getMonth() + 1);
     console.log("getText -> StartMonth", StartMonth)
-    let EndMonth = currentDate.getMonth()
+    let EndMonth = (Date2.getMonth() + 1)
     console.log("getText -> EndMonth", EndMonth)
 
-    if (StartYear !== EndYear) {
+
+
+    /* if (StartYear !== EndYear) {
       for (j = StartYear; j < EndYear; j++) {
         for (i = StartMonth; i < 12; i++) {
           sum = sum + MonthsArr[i]
 
         }
-        console.log("getText -> sum multi", sum)
+        //console.log("getText -> sum multi", sum)
 
         for (h = 0; h < EndMonth - 1; h++) {
           sum = sum + MonthsArr[h]
@@ -57,19 +70,31 @@ getText = (e) => {
         }
       }
 
-    } else {
-      for (i = StartMonth; i < EndMonth - 1; i++) {
+    } else { */
 
-        sum = sum + MonthsArr[i]
+    let daysInStartMonth = (MonthsArr[StartMonth - 1] - Date1.getDate())
+    console.log("getText -> daysInStartMonth", daysInStartMonth)
+    let daysInEndMonth = (Date2.getDate())
+    console.log("getText -> daysInEndMonth", daysInEndMonth)
 
-      }
+    for (i = StartMonth + 1; i < EndMonth; i++) {
+
+      console.log(i)
+      sum = sum + MonthsArr[i]
+
+
+      console.log("getText -> sum", sum)
+
     }
+    //}
 
-    //console.log("total days", Math.floor((diffTime / (1000 * 60 * 60 * 24))));
+    console.log("total days", Math.floor((diffTime / (1000 * 60 * 60 * 24))));
     //console.log("getText -> sum", sum)
 
-    let diffDays = Math.floor((diffTime / (1000 * 60 * 60 * 24)) - sum);
-    // console.log("getText -> diffDays", diffDays)
+    let diffDays = Math.floor((((diffTime / (1000 * 60 * 60 * 24))) - sum) + 1);
+
+
+    //console.log("getText -> diffDays", diffDays)
     let diffHours = Math.floor(((diffTime / (1000 * 60 * 60))) % 24);
     // console.log("getText -> diffHours", diffHours)
     let diffMins = Math.floor(((diffTime / (1000 * 60))) % 60);
@@ -78,7 +103,7 @@ getText = (e) => {
     // console.log("getText -> diffSecs", diffSecs)
 
 
-    outputValue = `${diffYears} Years and ${diffMonths} months and ${diffDays} Days and ${diffHours} Hours and ${diffMins} Mints and ${diffSecs} Seconds Left`
+    outputValue = `${diffYears} Years and ${diffMonths} months and ${diffDays} Days and ${diffHours} Hours and ${diffMins} Mints and ${diffSecs} Seconds Left (excluding last day)`
 
     output.innerText = outputValue;
 
