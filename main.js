@@ -10,8 +10,8 @@ const output = document.getElementById('output')
 let inputValue1 = '';
 let outputValue = '';
 
-input1.value = '2020-06-16 13:26:52';
-input2.value = '2020-07-18 22:42:50';
+input1.value = '2020-01-05 13:26:52';
+input2.value = '2020-05-20 15:42:50';
 
 
 getText = (e) => {
@@ -55,9 +55,9 @@ getText = (e) => {
     let sum = 0;
 
     let StartMonth = (Date1.getMonth() + 1);
-    console.log("getText -> StartMonth", StartMonth)
+    //console.log("getText -> StartMonth", StartMonth)
     let EndMonth = (Date2.getMonth() + 1)
-    console.log("getText -> EndMonth", EndMonth)
+    //console.log("getText -> EndMonth", EndMonth)
 
 
 
@@ -84,16 +84,17 @@ getText = (e) => {
       // console.log("getText -> daysInStartMonth", daysInStartMonth)
       let daysInEndMonth = (Date2.getDate())
       //console.log("getText -> daysInEndMonth", daysInEndMonth)
-
       for (i = StartMonth + 1; i < EndMonth; i++) {
         console.log(i)
         sum = sum + MonthsArr[i]
-        console.log("getText -> sum", sum)
+        //console.log("getText -> sum", sum)
       }
     }
-    console.log("getText -> sum", sum)
+    //console.log("getText -> sum", sum)
     diffDays = Math.floor((((diffTime / (1000 * 60 * 60 * 24))) - sum));
-    if (diffDays > MonthsArr[StartMonth - 1]) {
+    //console.log("getText -> diffDays", diffDays)
+
+    if (Math.abs(diffDays) > MonthsArr[StartMonth - 1]) {
       //console.log("getText -> MonthsArr[StartMonth]", MonthsArr[StartMonth])
       diffDays = Math.abs(diffDays) % MonthsArr[StartMonth - 1]
     }
