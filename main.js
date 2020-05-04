@@ -10,8 +10,8 @@ const output = document.getElementById('output')
 let inputValue1 = '';
 let outputValue = '';
 
-input1.value = '2020-01-05 13:26:52';
-input2.value = '2020-05-20 15:42:50';
+input1.value = '2020-03-05 13:26:52';
+input2.value = '2020-05-04 15:42:50';
 
 
 getText = (e) => {
